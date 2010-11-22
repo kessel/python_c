@@ -1,10 +1,9 @@
 
-%module espresso
-%include "/Applications/Inkscape.app/Contents/Resources/python/site-packages/i386/2.5/numpy/doc/swig/numpy.i"
-%init %{
-  import_array();
-%}
+%numpy_typemaps(double, NPY_DOUBLE, int)
 
-%apply ( double* IN_ARRAY1, int DIM1 ) { (double* p_box_l, int n) }
-int setmd_box_l(double* p_box_l);
 
+%apply (double IN_ARRAY1[ANY]) {(double test[3])}
+int setmd_box_l(double* test);
+
+%apply (double ARGOUT_ARRAY1[ANY]) {(double p_box_l[3])};
+int getmd_box_l(double p_box_l[3]);
